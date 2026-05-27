@@ -1,34 +1,76 @@
 # User Management API
-User Managment API shows the use of REST api for performing CRUD operations for a user
-## Description
-User Managment API shows the use of REST api for performing CRUD operations for a user
+
+A RESTful API built with Node.js, Express, and TypeScript featuring JWT authentication, bcrypt password hashing, and SQLite persistence.
 
 ## Tech Stack
-ExpressJS, jsonwebtoken, tsc, nodemon, bcrypt
+
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Language:** TypeScript
+- **Database:** SQLite (better-sqlite3)
+- **Authentication:** JSON Web Tokens (JWT)
+- **Password Hashing:** bcrypt
+
 ## Features
-It allows to create user update their values dlete and fetch details all the while protecting routes using JWT and protected routes using a middleware and also catching all error while prevent SQL injection by using prepared statement
+
+- Full CRUD operations for user management
+- JWT-based authentication with 1 hour expiry
+- Password hashing with bcrypt
+- Protected routes via auth middleware
+- SQL injection prevention with prepared statements
+- Input validation with descriptive error messages
+
 ## Getting Started
-run npm install to install the packages then to run the typescript server npm run dev:ts while for jaavscript version we use npm run express:dev
+
 ### Prerequisites
-You need to run npm install 
+- Node.js v18+
+- npm
+
 ### Installation
 
+```bash
+git clone https://github.com/abubakarsani-raven/user-management-api.git
+cd user-management-api
+npm install
+```
+
 ### Environment Variables
-JWT_SECRET_KEY ="****"
+
+Create a `.env` file in the root directory:
+JWT_SECRET_KEY=your_secret_key_here
+
+
 ### Running the Server
-run npm install to install the packages then to run the typescript server npm run dev:ts while for jaavscript version we use npm run express:dev
+
+```bash
+npm run dev:ts
+```
+
+Server runs on `http://localhost:3000`
 
 ## API Endpoints
-/users and /auth
-### Auth Routes
-/auth/login ------------ to login using email and password 
-/auth/register  ------------ to register using email, password, age, and name
 
-### User Routes (Protected — requires Bearer token)
-/users{GET} ------------------ to get all user in the app 
-/users{POST} ------------------- to create a new user 
-/users/:id{DELETE}-------------------- to delete a user with id 
-/users/:id{GET}-------------------- to get a user with an id 
-/users/:id{PATCH}-------------------- to update details of a user with id 
+### Auth Routes
+
+| Method | Endpoint | Description | Body |
+|---|---|---|---|
+| POST | /auth/register | Register a new user | name, age, email, password |
+| POST | /auth/login | Login and receive JWT token | email, password |
+
+### User Routes (Protected — Bearer token required)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | /users | Get all users |
+| POST | /users | Create a new user |
+| GET | /users/:id | Get user by ID |
+| PATCH | /users/:id | Update user by ID |
+| DELETE | /users/:id | Delete user by ID |
+
 ## Security
-using JWT to control access to some route with 1hr expiry doen by the middleware and password masking then also checks being done before a request 
+
+- Passwords hashed with bcrypt (10 salt rounds)
+- JWT tokens expire after 1 hour
+- Protected routes via middleware verification
+- SQL injection prevented with prepared statements
+- Passwords excluded from all API responses
