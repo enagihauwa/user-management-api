@@ -20,7 +20,7 @@ const registerController = (body:CreateUserInput): ControllerOutput => {
 
 const loginController = (body: LoginInput): ControllerOutput | { status: number; data?: string, error?: string } => {
     const { email, password } = body;
-    const user = db.prepare('SELECT id, name, email, age, created_at, password FROM users WHERE email = ?').get(email) as UserPasswordIncluded;
+    const user = db.prepare('SELECT id, name, email, age, created_at FROM users WHERE email = ?').get(email) as UserPasswordIncluded;
     if (!user) {
         return { status: 404, error: 'Bad request: user with email ' + email + ' not found' };
     }
